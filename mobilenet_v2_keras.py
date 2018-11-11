@@ -144,10 +144,14 @@ def MobileNetv2(input_shape, k, width_multiplier=1.0):
     x = _conv_block(inputs, roundup(int(32*width_multiplier)), (3, 3), strides=(2, 2), use_bias=False)
     nlay+=1
 
+    fix = 0
+    if width_multiplier - 1.3 < 0.01:
+        fix = -2
+
     x = _inverted_residual_block(x, roundup(int(16*width_multiplier)), (3, 3), t=1, strides=1, n=1)
     x = _inverted_residual_block(x, roundup(int(24*width_multiplier)), (3, 3), t=6, strides=2, n=2)
     x = _inverted_residual_block(x, roundup(int(32*width_multiplier)), (3, 3), t=6, strides=2, n=3)
-    x = _inverted_residual_block(x, roundup(int(64*width_multiplier)), (3, 3), t=6, strides=2, n=4)
+    x = _inverted_residual_block(x, roundup(int(64*width_multiplier)+fix), (3, 3), t=6, strides=2, n=4)
     x = _inverted_residual_block(x, roundup(int(96*width_multiplier)), (3, 3), t=6, strides=1, n=3)
     x = _inverted_residual_block(x, roundup(int(160*width_multiplier)), (3, 3), t=6, strides=2, n=3)
     x = _inverted_residual_block(x, roundup(int(320*width_multiplier)), (3, 3), t=6, strides=1, n=1)
