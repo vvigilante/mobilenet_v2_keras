@@ -12,6 +12,7 @@ This code allows to port pretrained imagenet weights from original mobilenet v2 
 ```bash
 wget https://storage.googleapis.com/mobilenet_v2/checkpoints/mobilenet_v2_0.5_160.tgz
 tar -xf mobilenet_v2_0.5_160.tgz
+rm -rf weights
 ./extract_weights_from_tf_checkpoint.py mobilenet_v2_0.5_160.ckpt
 ./export_keras_mobilev2.py 0.5 160
 ```
