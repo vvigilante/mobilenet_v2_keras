@@ -152,9 +152,11 @@ def MobileNetv2(input_shape, k, width_multiplier=1.0):
     x = _inverted_residual_block(x, roundup(int(160*width_multiplier)), (3, 3), t=6, strides=2, n=3)
     x = _inverted_residual_block(x, roundup(int(320*width_multiplier)), (3, 3), t=6, strides=1, n=1)
 
-    x = _conv_block(x, 1280, (1, 1), strides=(1, 1), use_bias=False)
+    last_conv_size = max(1280, int(1280*width_multiplier))
+
+    x = _conv_block(x, last_conv_size, (1, 1), strides=(1, 1), use_bias=False)
     x = GlobalAveragePooling2D()(x)
-    x = Reshape((1, 1, 1280))(x)
+    x = Reshape((1, 1, last_conv_size))(x)
     x = Dropout(0.3, name='Dropout')(x)
     x = Conv2D(k, (1, 1), padding='same', name='logits', use_bias=True)(x)
 
