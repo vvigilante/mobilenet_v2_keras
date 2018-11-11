@@ -121,8 +121,11 @@ def _inverted_residual_block(inputs, filters, kernel, t, strides, n):
 
     return x
 
+def roundup(n):
+    x = (n+6)//8
+    return x*8
 
-def MobileNetv2(input_shape, k, width_multiplier=1.0, min_width=16):
+def MobileNetv2(input_shape, k, width_multiplier=1.0):
     """MobileNetv2
     This function defines a MobileNetv2 architectures.
 
@@ -138,16 +141,16 @@ def MobileNetv2(input_shape, k, width_multiplier=1.0, min_width=16):
     nlay = -1
 
     inputs = Input(shape=input_shape)
-    x = _conv_block(inputs, max(min_width, int(32*width_multiplier)), (3, 3), strides=(2, 2), use_bias=False)
+    x = _conv_block(inputs, roundup(int(32*width_multiplier)), (3, 3), strides=(2, 2), use_bias=False)
     nlay+=1
 
-    x = _inverted_residual_block(x, int(16*width_multiplier), (3, 3), t=1, strides=1, n=1)
-    x = _inverted_residual_block(x, max(min_width, int(24*width_multiplier)), (3, 3), t=6, strides=2, n=2)
-    x = _inverted_residual_block(x, max(min_width, int(32*width_multiplier)), (3, 3), t=6, strides=2, n=3)
-    x = _inverted_residual_block(x, max(min_width, int(64*width_multiplier)), (3, 3), t=6, strides=2, n=4)
-    x = _inverted_residual_block(x, max(min_width, int(96*width_multiplier)), (3, 3), t=6, strides=1, n=3)
-    x = _inverted_residual_block(x, max(min_width, int(160*width_multiplier)), (3, 3), t=6, strides=2, n=3)
-    x = _inverted_residual_block(x, max(min_width, int(320*width_multiplier)), (3, 3), t=6, strides=1, n=1)
+    x = _inverted_residual_block(x, roundup(int(16*width_multiplier)), (3, 3), t=1, strides=1, n=1)
+    x = _inverted_residual_block(x, roundup(int(24*width_multiplier)), (3, 3), t=6, strides=2, n=2)
+    x = _inverted_residual_block(x, roundup(int(32*width_multiplier)), (3, 3), t=6, strides=2, n=3)
+    x = _inverted_residual_block(x, roundup(int(64*width_multiplier)), (3, 3), t=6, strides=2, n=4)
+    x = _inverted_residual_block(x, roundup(int(96*width_multiplier)), (3, 3), t=6, strides=1, n=3)
+    x = _inverted_residual_block(x, roundup(int(160*width_multiplier)), (3, 3), t=6, strides=2, n=3)
+    x = _inverted_residual_block(x, roundup(int(320*width_multiplier)), (3, 3), t=6, strides=1, n=1)
 
     x = _conv_block(x, 1280, (1, 1), strides=(1, 1), use_bias=False)
     x = GlobalAveragePooling2D()(x)
