@@ -1,5 +1,6 @@
 # Mobilenet v2 Keras port
-This code allows to port pretrained imagenet weights from original mobilenet v2 models to a keras model.
+This code allows to port pretrained imagenet weights from original MobileNet v2 models to a keras model.
+You can use this code to convert all the MobileNets from tensorflow to keras, with pretrained weights.
 
 ## Usage
 - Download a checkpoint from https://github.com/tensorflow/models/tree/master/research/slim/nets/mobilenet
@@ -21,7 +22,7 @@ wget https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Grosser_Panda.JPG
 ```
 
 ## Credits
-- Original mobilenet port to keras: https://github.com/xiaochus/MobileNetV2
+- Original MobileNet port to keras: https://github.com/xiaochus/MobileNetV2
 - Original paper: [Inverted Residuals and Linear Bottlenecks Mobile Networks for Classification, Detection and Segmentation.](https://arxiv.org/abs/1801.04381)
 - Original mechanism for weight conversion: https://github.com/yuyang-huang/keras-inception-resnet-v2
 
