@@ -15,6 +15,9 @@ tar -xf mobilenet_v2_0.5_160.tgz
 rm -rf weights
 ./extract_weights_from_tf_checkpoint.py mobilenet_v2_0.5_160.ckpt
 ./export_keras_mobilev2.py 0.5 160
+
+wget https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Grosser_Panda.JPG/800px-Grosser_Panda.JPG
+./test_keras_mobilev2.py mobilenet_v2_0.5_160.h5
 ```
 
 ## Credits
