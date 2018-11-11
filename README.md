@@ -23,4 +23,4 @@ rm -rf weights
 - Original mechanism for weight conversion: https://github.com/yuyang-huang/keras-inception-resnet-v2
 
 ## More notes
-Tested on Linux Subsystem for windows, with Keras 2.2.4, Tensorflow 1.12.0, python 3.5.2.
+Tested on Linux Subsystem for Windows, with Keras 2.2.4, Tensorflow 1.12.0, python 3.5.2.
